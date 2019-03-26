@@ -6,6 +6,6 @@ target 'NetworkModule' do
   use_frameworks!
 
   # Pods for NetworkModule
-  pod 'PromiseKit'
+  pod 'PromiseKit', '~> 6.8.3'
   pod 'Alamofire'
 end

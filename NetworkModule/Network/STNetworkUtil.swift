@@ -11,15 +11,14 @@ import Foundation
 enum STNetworkUtil {
     
     //Define URL Path
-    static let URL_TODO1 = "todos/1"
-    static let URL_USERS = "users/1"
+    static let URL_SEARCH_USERS = "search/users"
     
     //Define Header Name
     static let ACCEPT_LANGUAGE = "Accept-Language"
     static let CONTENT_TYPE = "Content-Type"
     
     static func serverURL() -> String {
-        return "https://jsonplaceholder.typicode.com/"
+        return "https://api.github.com/"
     }
     
     static func getHttpheader(_ option: String? = nil) -> [String : String] {

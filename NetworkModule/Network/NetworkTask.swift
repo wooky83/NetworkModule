@@ -16,9 +16,19 @@ class NetworkTask<T: Decodable>: NSObject {
     private var cHttpHeader: [String: String]?
     private var cParameter: [String: String]?
     
+    // MARK: - NetworkTask Init
+    
+    /// Creates a `NetworkTask` using the default `SessionManager` to retrieve the contents of the specified `url`,
+    /// `method`, `parameters`, `encoding` and `headers`.
+    ///
+    /// - parameter method:     The HTTP method. `.get` by default.
+    /// - parameter parameters: The parameters. `nil` by default.
+    /// - parameter headers:    The HTTP headers. `nil` by default.
+    ///
+    /// - returns: Void.
     init(method: HTTPMethod = .get, header: [String: String]? = nil, parameter: [String: String]? = nil) {
         self.cHttpMethod = method
-        self.cHttpHeader = header
+        self.cHttpHeader = header ?? STNetworkUtil.getHttpheader(nil)
         self.cParameter = parameter
     }
     
@@ -26,17 +36,25 @@ class NetworkTask<T: Decodable>: NSObject {
         //TODO
     }
 
+    // MARK: - Data Request
+    
+    /// Creates a `DataRequest` using the default `Alamofire` to retrieve the contents of the specified `url`,
+    ///
+    /// - parameter url:        The URL.
+    ///
+    /// - returns: The created `Promise<T>`.
     func requestNetworkConnection(_ url: String) -> Promise<T> {
     
         print("requestNetworkConnection")
+        
         return Promise { seal in
             
-            Alamofire.request(STNetworkUtil.serverURL() + url, method: self.cHttpMethod, parameters: self.cParameter, headers: self.cHttpHeader)
+            Alamofire.request(url, method: self.cHttpMethod, parameters: self.cParameter, headers: self.cHttpHeader)
                 .validate()
                 .response { res in
                     guard let response = res.response, let responseData = res.data else { return seal.reject(NetworkError.networkError) }
                     print("[🍎🍊]response:\(response)")
-                    guard 200 ..< 300 ~= response.statusCode else { return seal.reject(NetworkError.httpError(status: response.statusCode))}
+                    guard 200 ..< 300 ~= response.statusCode else { return seal.reject(NetworkError.httpError(status: response.statusCode)) }
                   
                     let resultData = responseData
                     
@@ -51,9 +69,8 @@ class NetworkTask<T: Decodable>: NSObject {
                         }
                     } catch let error as NSError {
                         print("ParsingError : \(error)")
-                        seal.reject(NetworkError.networkError)
+                        seal.reject(NetworkError.jsonDecodingError)
                     }
-                   
             }
         }
     }
@@ -66,6 +83,7 @@ class NetworkTask<T: Decodable>: NSObject {
 
 enum NetworkError: Error {
     case networkError
+    case jsonDecodingError
     case httpError(status: Int)
 }
 

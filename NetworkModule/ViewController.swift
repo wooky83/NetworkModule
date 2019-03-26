@@ -10,11 +10,6 @@ import UIKit
 import PromiseKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var test1Btn: UIButton!
-    @IBOutlet weak var test2Btn: UIButton!
-    @IBOutlet weak var test1Txt: UITextView!
-    @IBOutlet weak var test2Txt: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,26 +18,48 @@ class ViewController: UIViewController {
 
     @IBAction func test1BtnClicked(_ sender: UIButton) {
         firstly {
-            NetRequest.userInfo(nil)
+            NetRequest.userInfo(["q": "wooky83"])
         }
-        .done {[weak self] in
-            self?.test1Txt.text = String(describing: $0)
+        .done {
+            print("testJson is \($0)")
+        }
+        .catch { error in
+            print("error : \(error)")
+        }
+        .finally {
+            print("finally")
+        }
+    }
+    
+    @IBAction func test2BtnClicked(_ sender: UIButton) {
+        firstly {
+            NetRequest.testPostJson(["name": "sung"])
+        }
+        .done {
+            print("testJson is \($0)")
         }
         .catch {
             print("error : \($0)")
         }
     }
     
-    @IBAction func test2BtnClicked(_ sender: UIButton) {
+  
+    @IBAction func test3BtnClicked(_ sender: UIButton) {
+    
         firstly {
-            NetRequest.users()
+            NetRequest.testJson(["name": "wooky"])
         }
-        .done {[weak self] in
-            self?.test2Txt.text = String(describing: $0)
+        .done {
+            print("testJson is \($0)")
         }
         .catch {
             print("error : \($0)")
         }
+
+    }
+    
+    @IBAction func test4BtnClicked(_ sender: UIButton) {
+            
     }
 }
 
