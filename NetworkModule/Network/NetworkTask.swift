@@ -26,9 +26,9 @@ class NetworkTask<T: Decodable>: NSObject {
     /// - parameter headers:    The HTTP headers. `nil` by default.
     ///
     /// - returns: Void.
-    init(method: HTTPMethod = .get, header: [String: String]? = nil, parameter: [String: String]? = nil) {
+    init(method: HTTPMethod = .get, parameter: [String: String]? = nil, header: [String: String]? = nil) {
         self.cHttpMethod = method
-        self.cHttpHeader = header ?? STNetworkUtil.getHttpheader(nil)
+        self.cHttpHeader = header ?? STNetworkUtil.getHttpheader()
         self.cParameter = parameter
     }
     
