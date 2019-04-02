@@ -19,19 +19,8 @@ struct NetRequest {
     // @param (required) tmp1 testParameter
     // @param (required) tmp2 testParameter
     static func userInfo(_ param: [String: String]? = nil) -> Promise<UserInfoBean> {
-        let task = NetworkTask<UserInfoBean>(method: .get, header: STNetworkUtil.getHttpheader(nil), parameter: param)
+        let task = NetworkTask<UserInfoBean>(method: .get, parameter: param, header: STNetworkUtil.getHttpheader(nil))
         return task.requestNetworkConnection(STNetworkUtil.serverURL() + STNetworkUtil.URL_SEARCH_USERS)
-    }
-    
-    // iOS용 포인트 조회 API 제공
-    //
-    // @url /users
-    // @method Get
-    // @param(required) device_id 사용자 디바이스 ID
-    // @param(required) widget_session 위젯 세션 ID
-    static func testJson(_ param: [String: String]?) -> Promise<PersonBean> {
-        let task = NetworkTask<PersonBean>(parameter: param)
-        return task.requestNetworkConnection("http://localhost:8080/test")
     }
     
     // iOS용 포인트 조회 API 제공
@@ -42,7 +31,30 @@ struct NetRequest {
     // @param(required) widget_session 위젯 세션 ID
     static func testPostJson(_ param: [String: String]?) -> Promise<PersonBean> {
         let task = NetworkTask<PersonBean>(method: .post, parameter: param)
-        return task.requestNetworkConnection("http://localhost:8080/test")
+        return task.requestNetworkConnection("http://127.0.0.1:8080/test/pa")
+    }
+    
+    // iOS용 포인트 조회 API 제공
+    //
+    // @url /users
+    // @method Get
+    // @param(required) device_id 사용자 디바이스 ID
+    // @param(required) widget_session 위젯 세션 ID
+    static func testJson(_ param: [String: String]?) -> Promise<PersonBean> {
+        let task = NetworkTask<PersonBean>(parameter: param)
+        return task.requestNetworkConnection("http://127.0.0.1:8080/test/pa")
+    }
+    
+    // iOS용 Basic Auth Test API 제공
+    //
+    // @url /users
+    // @method Get
+    // @param(required) device_id 사용자 디바이스 ID
+    // @param(required) widget_session 위젯 세션 ID
+    static func testAuthJson(_ param: [String: String]?) -> Promise<CommonBean> {
+        let task = NetworkTask<CommonBean>(parameter: param)
+        task.isAuthorization = .required
+        return task.requestNetworkConnection("http://127.0.0.1:8080/rest/auth/basic")
     }
     
 }

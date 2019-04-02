@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     
   
     @IBAction func test3BtnClicked(_ sender: UIButton) {
+  
     
         firstly {
             NetRequest.testJson(["name": "wooky"])
@@ -59,7 +60,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func test4BtnClicked(_ sender: UIButton) {
-            
+        firstly {
+            NetRequest.testAuthJson(nil)
+            }
+            .done {
+                print("testJson is \($0)")
+            }
+            .catch {
+                print("error : \($0)")
+        }
     }
 }
 

@@ -15,6 +15,13 @@ class NetworkTask<T: Decodable>: NSObject {
     private var cHttpMethod = HTTPMethod.get
     private var cHttpHeader: [String: String]?
     private var cParameter: [String: String]?
+    var isAuthorization = STNetworkUtil.Authorization.dontCare {
+        didSet {
+            if isAuthorization == .required {
+                cHttpHeader?[STNetworkUtil.AUTHORIZATION] = STNetworkUtil.basicAuth
+            }
+        }
+    }
     
     // MARK: - NetworkTask Init
     
@@ -46,6 +53,7 @@ class NetworkTask<T: Decodable>: NSObject {
     func requestNetworkConnection(_ url: String) -> Promise<T> {
     
         print("requestNetworkConnection")
+        print("url is \(url)\nheader is \(String(describing: self.cHttpHeader))")
         
         return Promise { seal in
             

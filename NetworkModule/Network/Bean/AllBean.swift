@@ -25,3 +25,7 @@ struct PersonBean: Codable {
     let name: String
     let age: Int
 }
+
+struct CommonBean: Codable {
+    let message: String?
+}

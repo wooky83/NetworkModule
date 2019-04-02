@@ -8,7 +8,12 @@
 
 import Foundation
 
+
 enum STNetworkUtil {
+    
+    enum Authorization: Equatable {
+        case notRequired, required, dontCare
+    }
     
     //Define URL Path
     static let URL_SEARCH_USERS = "search/users"
@@ -16,6 +21,7 @@ enum STNetworkUtil {
     //Define Header Name
     static let ACCEPT_LANGUAGE = "Accept-Language"
     static let CONTENT_TYPE = "Content-Type"
+    static let AUTHORIZATION = "Authorization"
     
     static func serverURL() -> String {
         return "https://api.github.com/"
@@ -30,5 +36,13 @@ enum STNetworkUtil {
     
     static func getURLEncodeCharacterSet() -> CharacterSet {
         return CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[] ").inverted
+    }
+    
+    static var basicAuth: String {
+        let username = "wooky"
+        let password = "1234"
+        let credentialData = "\(username):\(password)".data(using: .utf8)
+        let base64Credentials = credentialData?.base64EncodedString(options: []) ?? ""
+        return "Basic \(base64Credentials)"
     }
 }
