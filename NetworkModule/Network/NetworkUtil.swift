@@ -9,7 +9,7 @@
 import Foundation
 
 
-enum STNetworkUtil {
+enum NetworkUtil {
     
     enum Authorization: Equatable {
         case notRequired, required, dontCare

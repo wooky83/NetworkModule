@@ -19,8 +19,8 @@ struct NetRequest {
     // @param (required) tmp1 testParameter
     // @param (required) tmp2 testParameter
     static func userInfo(_ param: [String: String]? = nil) -> Promise<UserInfoBean> {
-        let task = NetworkTask<UserInfoBean>(method: .get, parameter: param, header: STNetworkUtil.getHttpheader(nil))
-        return task.requestNetworkConnection(STNetworkUtil.serverURL() + STNetworkUtil.URL_SEARCH_USERS)
+        let task = NetworkTask<UserInfoBean>(method: .get, parameter: param, header: NetworkUtil.getHttpheader(nil))
+        return task.requestNetworkConnection(NetworkUtil.serverURL() + NetworkUtil.URL_SEARCH_USERS)
     }
     
     // iOS용 포인트 조회 API 제공

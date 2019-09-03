@@ -15,10 +15,10 @@ class NetworkTask<T: Decodable>: NSObject {
     private var cHttpMethod = HTTPMethod.get
     private var cHttpHeader: [String: String]?
     private var cParameter: [String: String]?
-    var isAuthorization = STNetworkUtil.Authorization.dontCare {
+    var isAuthorization = NetworkUtil.Authorization.dontCare {
         didSet {
             if isAuthorization == .required {
-                cHttpHeader?[STNetworkUtil.AUTHORIZATION] = STNetworkUtil.basicAuth
+                cHttpHeader?[NetworkUtil.AUTHORIZATION] = NetworkUtil.basicAuth
             }
         }
     }
@@ -35,7 +35,7 @@ class NetworkTask<T: Decodable>: NSObject {
     /// - returns: Void.
     init(method: HTTPMethod = .get, parameter: [String: String]? = nil, header: [String: String]? = nil) {
         self.cHttpMethod = method
-        self.cHttpHeader = header ?? STNetworkUtil.getHttpheader()
+        self.cHttpHeader = header ?? NetworkUtil.getHttpheader()
         self.cParameter = parameter
     }
     

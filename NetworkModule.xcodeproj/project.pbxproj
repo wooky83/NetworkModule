@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C31EC5121C34A6A00434315 /* STNetworkUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C31EC4E21C34A6A00434315 /* STNetworkUtil.swift */; };
+		3C31EC5121C34A6A00434315 /* NetworkUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C31EC4E21C34A6A00434315 /* NetworkUtil.swift */; };
 		3C31EC5221C34A6A00434315 /* NetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C31EC4F21C34A6A00434315 /* NetRequest.swift */; };
 		3C31EC5321C34A6A00434315 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C31EC5021C34A6A00434315 /* NetworkTask.swift */; };
 		3C31EC5721C34BBE00434315 /* AllBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C31EC5521C34BBE00434315 /* AllBean.swift */; };
@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3C31EC4E21C34A6A00434315 /* STNetworkUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STNetworkUtil.swift; sourceTree = "<group>"; };
+		3C31EC4E21C34A6A00434315 /* NetworkUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtil.swift; sourceTree = "<group>"; };
 		3C31EC4F21C34A6A00434315 /* NetRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetRequest.swift; sourceTree = "<group>"; };
 		3C31EC5021C34A6A00434315 /* NetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
 		3C31EC5521C34BBE00434315 /* AllBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllBean.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 				3C31EC5421C34A7800434315 /* Bean */,
 				3C31EC4F21C34A6A00434315 /* NetRequest.swift */,
 				3C31EC5021C34A6A00434315 /* NetworkTask.swift */,
-				3C31EC4E21C34A6A00434315 /* STNetworkUtil.swift */,
+				3C31EC4E21C34A6A00434315 /* NetworkUtil.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -242,7 +242,7 @@
 				3C31EC5321C34A6A00434315 /* NetworkTask.swift in Sources */,
 				3C83BF1721C34721001AD145 /* AppDelegate.swift in Sources */,
 				3C31EC5721C34BBE00434315 /* AllBean.swift in Sources */,
-				3C31EC5121C34A6A00434315 /* STNetworkUtil.swift in Sources */,
+				3C31EC5121C34A6A00434315 /* NetworkUtil.swift in Sources */,
 				3C31EC5221C34A6A00434315 /* NetRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
