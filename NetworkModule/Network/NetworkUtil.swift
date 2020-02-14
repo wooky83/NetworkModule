@@ -46,3 +46,28 @@ enum NetworkUtil {
         return "Basic \(base64Credentials)"
     }
 }
+
+enum NetworkError: Error {
+    case networkError
+    case jsonDecodingError
+    case httpError(status: Int)
+}
+
+struct DecodingHelper: Decodable {
+    private let decoder: Decoder
+    
+    init(from decoder: Decoder) throws {
+        self.decoder = decoder
+    }
+    
+    func decode(to type: Decodable.Type) throws -> Decodable {
+        let decodable = try type.init(from: decoder)
+        return decodable
+    }
+}
+
+extension Encodable {
+    func toJSONData() -> Data? {
+        try? JSONEncoder().encode(self)
+    }
+}
