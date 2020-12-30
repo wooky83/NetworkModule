@@ -22,6 +22,7 @@ enum NetworkUtil {
     static let ACCEPT_LANGUAGE = "Accept-Language"
     static let CONTENT_TYPE = "Content-Type"
     static let AUTHORIZATION = "Authorization"
+    static let RETRY = "retry"
     
     static func serverURL() -> String {
         return "https://api.github.com/"
@@ -50,7 +51,15 @@ enum NetworkUtil {
 enum NetworkError: Error {
     case networkError
     case jsonDecodingError
-    case httpError(status: Int)
+    case typeCastingError
+    case unKnownHttpError(status: Int)
+    case serverError(MYServerError)
+}
+
+struct MYServerError: Decodable {
+    let code: String
+    let message: String
+    let detailMessage: String
 }
 
 struct DecodingHelper: Decodable {

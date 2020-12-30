@@ -38,15 +38,11 @@ class ViewController: UIViewController {
         .done {
             print("testJson is \($0)")
         }
-        .catch {
-            print("error : \($0)")
-        }
+        .cauterize()
     }
     
   
     @IBAction func test3BtnClicked(_ sender: UIButton) {
-  
-    
         firstly {
             NetRequest.testJson(["name": "wooky"])
         }
@@ -56,18 +52,29 @@ class ViewController: UIViewController {
         .catch {
             print("error : \($0)")
         }
-
     }
     
     @IBAction func test4BtnClicked(_ sender: UIButton) {
         firstly {
             NetRequest.testAuthJson(nil)
-            }
-            .done {
-                print("testJson is \($0)")
-            }
-            .catch {
-                print("error : \($0)")
+        }
+        .done {
+            print("testJson is \($0)")
+        }
+        .catch {
+            print("error : \($0)")
+        }
+    }
+ 
+    @IBAction func test5BtnClicked(_ sender: UIButton) {
+        firstly {
+            NetRequest.jsonplaceholderUser(nil)
+        }
+        .done {
+            print("jsonplaceholderUsers is \($0.userId)")
+        }
+        .catch {
+            print("jsonplaceholderUsers : \($0)")
         }
     }
 }

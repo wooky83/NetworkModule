@@ -26,7 +26,7 @@ struct NetRequest {
     // iOS용 포인트 조회 API 제공
     //
     // @url /users
-    // @method Post
+    // @method POST
     // @param(required) device_id 사용자 디바이스 ID
     // @param(required) widget_session 위젯 세션 ID
     static func testPostJson(_ param: [String: String]?) -> Promise<PersonBean> {
@@ -37,7 +37,7 @@ struct NetRequest {
     // iOS용 포인트 조회 API 제공
     //
     // @url /users
-    // @method Get
+    // @method GET
     // @param(required) device_id 사용자 디바이스 ID
     // @param(required) widget_session 위젯 세션 ID
     static func testJson(_ param: [String: String]?) -> Promise<PersonBean> {
@@ -48,13 +48,22 @@ struct NetRequest {
     // iOS용 Basic Auth Test API 제공
     //
     // @url /users
-    // @method Get
+    // @method GET
     // @param(required) device_id 사용자 디바이스 ID
     // @param(required) widget_session 위젯 세션 ID
     static func testAuthJson(_ param: [String: String]?) -> Promise<CommonBean> {
         let task = NetworkTask<CommonBean>(parameter: param)
         task.isAuthorization = .required
         return task.requestNetworkConnection("http://127.0.0.1:8080/rest/auth/basic")
+    }
+    
+    // jsonplaceholder Test API 제공
+    //
+    // @url /posts
+    // @method GET
+    static func jsonplaceholderUser(_ param: [String: String]?) -> Promise<UserBean> {
+        let task = NetworkTask<UserBean>(parameter: param)
+        return task.requestNetworkConnection("https://jsonplaceholder.typicode.com/posts/1")
     }
     
 }

@@ -29,3 +29,10 @@ struct PersonBean: Codable {
 struct CommonBean: Codable {
     let message: String?
 }
+
+struct UserBean: Codable {
+    let userId: Int
+    let id: Int
+    let title: String?
+    let body: String?
+}
