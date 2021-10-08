@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
     @IBAction func test1BtnClicked(_ sender: UIButton) {
         firstly {
-            NetRequest.userInfo(["q": "wooky83"])
+            NetRequest<UserInfoBean>.userInfo(["q": "wooky83"])
         }
         .done {
             print("testJson is \($0)")
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     
     @IBAction func test2BtnClicked(_ sender: UIButton) {
         firstly {
-            NetRequest.testPostJson(["name": "sung"])
+            NetRequest<PersonBean>.testPostJson(["name": "sung"])
         }
         .done {
             print("testJson is \($0)")
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
   
     @IBAction func test3BtnClicked(_ sender: UIButton) {
         firstly {
-            NetRequest.testJson(["name": "wooky"])
+            NetRequest<PersonBean>.testJson(["name": "wooky"])
         }
         .done {
             print("testJson is \($0)")
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     
     @IBAction func test4BtnClicked(_ sender: UIButton) {
         firstly {
-            NetRequest.testAuthJson(nil)
+            NetRequest<CommonBean>.testAuthJson(nil)
         }
         .done {
             print("testJson is \($0)")
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
  
     @IBAction func test5BtnClicked(_ sender: UIButton) {
         firstly {
-            NetRequest.jsonplaceholderUser(nil)
+            NetRequest<UserBean>.jsonplaceholderUser(nil)
         }
         .done {
             print("jsonplaceholderUsers is \($0.userId)")
