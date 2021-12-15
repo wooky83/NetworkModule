@@ -7,7 +7,7 @@ iOS HTTP Server 통신 구조 설계
 - simple
 ```
 firstly {
-    NetRequest.testJson(["name": "wooky"])
+    NetRequest.testJson<PersonBean>(["name": "wooky"])
 }
 .done {
     print("result is \($0)")
