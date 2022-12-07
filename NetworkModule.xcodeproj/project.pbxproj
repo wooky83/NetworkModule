@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,7 +16,8 @@
 		3C83BF1C21C34721001AD145 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C83BF1A21C34721001AD145 /* Main.storyboard */; };
 		3C83BF1E21C34722001AD145 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C83BF1D21C34722001AD145 /* Assets.xcassets */; };
 		3C83BF2121C34722001AD145 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C83BF1F21C34722001AD145 /* LaunchScreen.storyboard */; };
-		FBF54136C067187FFE7A2410 /* Pods_NetworkModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF28F188E16755AE74636B4 /* Pods_NetworkModule.framework */; };
+		CE59B07D29403DA400B3B39F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CE59B07C29403DA400B3B39F /* Alamofire */; };
+		CE59B0802940442E00B3B39F /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE59B07F2940442E00B3B39F /* PromiseKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +32,6 @@
 		3C83BF1D21C34722001AD145 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C83BF2021C34722001AD145 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C83BF2221C34722001AD145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3FF28F188E16755AE74636B4 /* Pods_NetworkModule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkModule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		53678E0B2766E1EBA52439A9 /* Pods-NetworkModule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkModule.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkModule/Pods-NetworkModule.release.xcconfig"; sourceTree = "<group>"; };
-		539FBA6F015EFC8E1F1DF567 /* Pods-NetworkModule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkModule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkModule/Pods-NetworkModule.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBF54136C067187FFE7A2410 /* Pods_NetworkModule.framework in Frameworks */,
+				CE59B0802940442E00B3B39F /* PromiseKit in Frameworks */,
+				CE59B07D29403DA400B3B39F /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,8 +71,6 @@
 			children = (
 				3C83BF1521C34721001AD145 /* NetworkModule */,
 				3C83BF1421C34721001AD145 /* Products */,
-				B5F1FBB54318D6FE0BAF8EA1 /* Pods */,
-				A7906F2588E8D724F5C9C23F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,23 +96,6 @@
 			path = NetworkModule;
 			sourceTree = "<group>";
 		};
-		A7906F2588E8D724F5C9C23F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3FF28F188E16755AE74636B4 /* Pods_NetworkModule.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B5F1FBB54318D6FE0BAF8EA1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				539FBA6F015EFC8E1F1DF567 /* Pods-NetworkModule.debug.xcconfig */,
-				53678E0B2766E1EBA52439A9 /* Pods-NetworkModule.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,17 +103,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C83BF2521C34722001AD145 /* Build configuration list for PBXNativeTarget "NetworkModule" */;
 			buildPhases = (
-				F5D9D2C10DFCDC2843E51076 /* [CP] Check Pods Manifest.lock */,
 				3C83BF0F21C34721001AD145 /* Sources */,
 				3C83BF1021C34721001AD145 /* Frameworks */,
 				3C83BF1121C34721001AD145 /* Resources */,
-				E01920119AD43543C6D863C2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = NetworkModule;
+			packageProductDependencies = (
+				CE59B07C29403DA400B3B39F /* Alamofire */,
+				CE59B07F2940442E00B3B39F /* PromiseKit */,
+			);
 			productName = NetworkModule;
 			productReference = 3C83BF1321C34721001AD145 /* NetworkModule.app */;
 			productType = "com.apple.product-type.application";
@@ -162,6 +144,10 @@
 				Base,
 			);
 			mainGroup = 3C83BF0A21C34721001AD145;
+			packageReferences = (
+				CE59B07B29403DA400B3B39F /* XCRemoteSwiftPackageReference "Alamofire" */,
+				CE59B07E2940442E00B3B39F /* XCRemoteSwiftPackageReference "PromiseKit" */,
+			);
 			productRefGroup = 3C83BF1421C34721001AD145 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -183,48 +169,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E01920119AD43543C6D863C2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NetworkModule/Pods-NetworkModule-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NetworkModule/Pods-NetworkModule-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NetworkModule/Pods-NetworkModule-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F5D9D2C10DFCDC2843E51076 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NetworkModule-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3C83BF0F21C34721001AD145 /* Sources */ = {
@@ -380,7 +324,6 @@
 		};
 		3C83BF2621C34722001AD145 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 539FBA6F015EFC8E1F1DF567 /* Pods-NetworkModule.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -398,7 +341,6 @@
 		};
 		3C83BF2721C34722001AD145 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53678E0B2766E1EBA52439A9 /* Pods-NetworkModule.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -436,6 +378,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE59B07B29403DA400B3B39F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = exactVersion;
+				version = 5.6.4;
+			};
+		};
+		CE59B07E2940442E00B3B39F /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE59B07C29403DA400B3B39F /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE59B07B29403DA400B3B39F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		CE59B07F2940442E00B3B39F /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE59B07E2940442E00B3B39F /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3C83BF0B21C34721001AD145 /* Project object */;
 }
