@@ -10,10 +10,7 @@ let project = Project(name: "Network",
                         Project.target(
                             name: "Network",
                             product: .app,
-                            infoPlist: .extendingDefault(with: [
-                                "CFBundleShortVersionString": "1.0",
-                                "CFBundleVersion": "1",
-                            ]),
+                            infoPlist: .file(path: .relativeToManifest("Info.plist")),
                             sources: "Sources/**",
                             resources: "Resources/**",
                             dependencies: [
@@ -24,6 +21,7 @@ let project = Project(name: "Network",
                         Project.target(
                             name: "NetworkTests",
                             product: .unitTests,
+                            infoPlist: .default,
                             sources: "Tests/**",
                             dependencies: [.target(name: "Network")]
                         ),
