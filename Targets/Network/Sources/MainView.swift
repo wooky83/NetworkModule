@@ -16,7 +16,7 @@ public struct MainView: View {
                 .padding()
             Spacer()
             Button("Use Alamofire With PromiseKit") {
-                NetworkAlamofire.NetRequest<NetworkAlamofire.PostModel>
+                HomeService
                     .jsonplaceholderUser()
                     .done { model in
                         print("👍[Result]", model.title)
@@ -27,12 +27,12 @@ public struct MainView: View {
             }
             Spacer()
             Button("Use URLSession With Combine") {
-                NetworkURLSession.NetRequest<NetworkURLSession.PostModel>
+                MainService
                     .jsonplaceholderUser()
                     .sink(receiveCompletion: {
                         print("completion: \($0)")
                     }, receiveValue: { model in
-                        print("👍[Result]", model!.body)
+                        print("👍[Result]", model.body)
                     })
                     .store(in: &cancellables)
 

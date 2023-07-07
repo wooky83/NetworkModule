@@ -3,7 +3,7 @@ import Combine
 
 extension Remote {
 
-    func asPublisher() -> AnyPublisher<T?, Error> {
+    public func asPublisher() -> AnyPublisher<T?, Error> {
         Deferred { () -> PassthroughSubject<T?, Error> in
             let subject = PassthroughSubject<T?, Error>()
             Task {
@@ -17,6 +17,15 @@ extension Remote {
             }
             return subject
         }.eraseToAnyPublisher()
+    }
+
+    public func asUnwrapPublisher() -> AnyPublisher<T, Error> {
+        asPublisher()
+            .tryMap {
+                guard let response = $0 else { throw NetworkError.typeCastingError }
+                return response
+            }
+            .eraseToAnyPublisher()
     }
 
 }

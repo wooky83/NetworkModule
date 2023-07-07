@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 import PromiseKit
 
-class NetworkTask<T: Decodable>: NSObject {
+public class NetworkTask<T: Decodable>: NSObject {
 
     private var cHttpMethod = HTTPMethod.get
     private var cHttpHeader: HTTPHeaders?
@@ -25,7 +25,7 @@ class NetworkTask<T: Decodable>: NSObject {
     /// - parameter headers:    The HTTP headers. `nil` by default.
     ///
     /// - returns: Void.
-    init(method: HTTPMethod = .get, parameter: [String: String]? = nil, header: [String: String]? = nil) {
+    public init(method: HTTPMethod = .get, parameter: [String: String]? = nil, header: [String: String]? = nil) {
         self.cHttpMethod = method
         let mHeader = header ?? NetworkUtil.getHttpheader()
         self.cHttpHeader = HTTPHeaders(mHeader)
@@ -43,7 +43,7 @@ class NetworkTask<T: Decodable>: NSObject {
     /// - parameter url:        The URL.
     ///
     /// - returns: The created `Promise<T>`.
-    func requestNetworkConnection(_ url: String) -> Promise<T> {
+    public func requestNetworkConnection(_ url: String) -> Promise<T> {
     
         print("requestNetworkConnection url is \(url)\nheader is \(String(describing: self.cHttpHeader))")
         

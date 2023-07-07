@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class Remote<T: Decodable> {
+public class Remote<T: Decodable> {
 
     public enum HTTPMethod: String {
         case GET, POST
@@ -17,7 +17,7 @@ class Remote<T: Decodable> {
         }
     }
 
-    init(url: String, method: HTTPMethod = .GET, parameter: [String: String]? = nil, header: [String: String]? = nil) {
+    public init(url: String, method: HTTPMethod = .GET, parameter: [String: String]? = nil, header: [String: String]? = nil) {
         self.urlRequest = Self.configureURLRequest(url: url, method: method, parameter: parameter, header: header)
     }
 
