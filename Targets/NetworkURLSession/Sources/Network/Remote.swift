@@ -1,43 +1,49 @@
 import Foundation
 import Combine
 
-class Remote<T: Decodable>: NSObject {
+class Remote<T: Decodable> {
 
-    private var cUrl: String
-    private var cHttpMethod: String
-    private var cHttpHeader: [String: String]?
-    private var cParameter: [String: String]?
+    public enum HTTPMethod: String {
+        case GET, POST
+    }
+
+    private var urlRequest: URLRequest
+
     var isAuthorization = NetworkUtil.Authorization.dontCare {
         didSet {
             if isAuthorization == .required {
-                cHttpHeader?[NetworkUtil.AUTHORIZATION] = NetworkUtil.basicAuth
+                urlRequest.allHTTPHeaderFields?.updateValue(NetworkUtil.basicAuth, forKey: NetworkUtil.AUTHORIZATION)
             }
         }
     }
 
-    init(url: String, method: String = "GET", parameter: [String: String]? = nil, header: [String: String]? = nil) {
-        self.cUrl = url
-        self.cHttpMethod = method
-        self.cHttpHeader = header
-        self.cParameter = parameter
+    init(url: String, method: HTTPMethod = .GET, parameter: [String: String]? = nil, header: [String: String]? = nil) {
+        self.urlRequest = Self.configureURLRequest(url: url, method: method, parameter: parameter, header: header)
     }
 
-    func requestNetworkConnection() async throws -> T {
+    private static func configureURLRequest(url: String, method: HTTPMethod, parameter: [String: String]?, header: [String: String]?) -> URLRequest {
+        var destUrl = url
+        if case .GET = method, let parameter {
+            destUrl.append(contentsOf: "?\(parameter.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))")
+        }
+        var urlRequest = URLRequest(url: URL(string: destUrl)!)
+        urlRequest.httpMethod = method.rawValue
+        if let header {
+            urlRequest.allHTTPHeaderFields?.merge(header) { _, rhs in rhs }
+        }
+        return urlRequest
+    }
 
-        print("requestNetworkConnection url is \(cUrl)\nheader is \(String(describing: self.cHttpHeader))")
-        var urlRequest = URLRequest(url: URL(string: self.cUrl)!)
-        urlRequest.httpMethod = self.cHttpMethod
+    func request() async throws -> T {
+
+        print("requestNetworkConnection url is \(String(describing: urlRequest.url?.absoluteString))")
 
         let (resultData, response) = try await URLSession.shared.data(for: urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else { throw NetworkError.networkError }
+        guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else { throw NetworkError.httpError }
         print("[😝😜🤪] JsonResult : \(String(describing: String(data: resultData, encoding: .utf8)))")
 
-        do {
-            let decodedResponse = try JSONDecoder().decode(T.self, from: resultData)
-            return decodedResponse
-        } catch {
-            throw NetworkError.jsonDecodingError
-        }
+        guard let decodedResponse = try? JSONDecoder().decode(T.self, from: resultData) else { throw NetworkError.jsonDecodingError }
+        return decodedResponse
     }
     
     deinit {

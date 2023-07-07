@@ -43,13 +43,5 @@ enum NetworkError: Error {
     case networkError
     case jsonDecodingError
     case typeCastingError
-    case unKnownHttpError(status: Int)
-    case serverError(MYServerError)
+    case httpError
 }
-
-struct MYServerError: Decodable {
-    let code: String
-    let message: String
-    let detailMessage: String
-}
-

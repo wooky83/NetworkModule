@@ -8,7 +8,7 @@ extension Remote {
             let subject = PassthroughSubject<T?, Error>()
             Task {
                 do {
-                    let value = try await self.requestNetworkConnection()
+                    let value = try await self.request()
                     subject.send(value)
                     subject.send(completion: .finished)
                 } catch {
