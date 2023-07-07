@@ -5,7 +5,9 @@ import ProjectDescriptionHelpers
 let project = Project(name: "NetworkURLSession",
                       organizationName: "com.wooky",
                       options: .options(automaticSchemesOptions: .disabled),
-                      packages: [],
+                      packages: [
+                        .Swifter
+                      ],
                       settings: .none,
                       targets: [
                         Project.target(
@@ -18,8 +20,14 @@ let project = Project(name: "NetworkURLSession",
                         Project.target(
                             name: "NetworkURLSessionTests",
                             product: .unitTests,
-                            sources: "Tests/**",
-                            dependencies: [.target(name: "NetworkURLSession")]
+                            sources: [
+                                "Tests/**",
+                                "../TestHelper/**"
+                            ],
+                            dependencies: [
+                                .target(name: "NetworkURLSession"),
+                                Dependency.MyPackage.Swifter,
+                            ]
                         ),
                       ],
                       schemes: []

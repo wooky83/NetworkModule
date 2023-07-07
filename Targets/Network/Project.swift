@@ -27,12 +27,12 @@ let project = Project(name: "Network",
                         ),
                       ],
                       schemes: [
-                        .init(
-                            name: "Network-Dev",
-                            buildAction: .buildAction(
-                                targets: ["Network"]
-                            )
-                        ),
+                          .init(
+                              name: "Network-Dev",
+                              buildAction: .buildAction(
+                                  targets: ["Network"]
+                              )
+                          ),
                       ],
                       additionalFiles: []
 )

@@ -8,6 +8,7 @@ let project = Project(name: "NetworkAlamofire",
                       packages: [
                         .Alamofire,
                         .PromiseKit,
+                        .Swifter,
                       ],
                       settings: .none,
                       targets: [
@@ -24,8 +25,14 @@ let project = Project(name: "NetworkAlamofire",
                         Project.target(
                             name: "NetworkAlamofireTests",
                             product: .unitTests,
-                            sources: "Tests/**",
-                            dependencies: [.target(name: "NetworkAlamofire")]
+                            sources: [
+                                "Tests/**",
+                                "../TestHelper/**"
+                            ],
+                            dependencies: [
+                                .target(name: "NetworkAlamofire"),
+                                Dependency.MyPackage.Swifter,
+                            ]
                         ),
                       ],
                       schemes: []
