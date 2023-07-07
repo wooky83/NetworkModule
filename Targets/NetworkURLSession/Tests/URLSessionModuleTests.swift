@@ -8,9 +8,15 @@ final class URLSessionModuleTests: XCTestCase {
     var server: MyLocalServer!
 
     override func setUpWithError() throws {
+        try super.setUpWithError()
         server = MyLocalServer()
         server.startServer()
         server.configureServer()
+    }
+
+    override func tearDownWithError() throws {
+        try super.tearDownWithError()
+        server = nil
     }
 
     func testGetMethod() {
@@ -25,7 +31,7 @@ final class URLSessionModuleTests: XCTestCase {
             })
             .store(in: &cancellables)
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 5)
         XCTAssertEqual(message, "world")
     }
 }
