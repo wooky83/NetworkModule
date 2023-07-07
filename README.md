@@ -1,3 +1,4 @@
+[![Build](https://github.com/wooky83/NetworkModule/actions/workflows/Build.yml/badge.svg)](https://github.com/wooky83/NetworkModule/actions/workflows/Build.yml)
 # NetworkModule
 iOS HTTP Server 통신 구조 설계 
 - PromiseKit + Alamofire + Codable
