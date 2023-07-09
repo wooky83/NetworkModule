@@ -1,10 +1,29 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
+let mainScheme = Scheme(
+    name: "NetworkTest",
+    buildAction: .buildAction(
+        targets: [
+            .project(path: .relativeToRoot("Targets/Network"), target: "Network")
+        ]
+    ),
+    testAction: .targets(
+        [
+            .init(target: .project(path: "Targets/Network", target: "NetworkTests")),
+            .init(target: .project(path: "Targets/NetworkAlamofire", target: "NetworkAlamofireTests")),
+            .init(target: .project(path: "Targets/NetworkURLSession", target: "NetworkURLSessionTests")),
+        ]
+    )
+)
+
 let workspace = Workspace(
     name: "Network",
     projects: [
         "Targets/**",
+    ],
+    schemes: [
+        mainScheme
     ],
     generationOptions: .options(
         enableAutomaticXcodeSchemes: false,
