@@ -1,8 +1,11 @@
-import Foundation
 import XCTest
-@testable import NetworkAlamofire
+import Combine
+@testable import NetworkModule
 
-final class AlamofireModuleTests: XCTestCase {
+final class NetworkModuleTests: XCTestCase {
+
+    var cancellables: Set<AnyCancellable> = .init()
+
     var server: MyLocalServer!
 
     override func setUpWithError() throws {
@@ -14,10 +17,27 @@ final class AlamofireModuleTests: XCTestCase {
 
     override func tearDownWithError() throws {
         try super.tearDownWithError()
+        
         server = nil
     }
 
-    func testGetMethod() {
+    func testURLSessionGet() throws {
+        let expectation = XCTestExpectation()
+        var message = ""
+        MockService
+            .jsonplaceholderUser()
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { model in
+                message = model.hello
+                expectation.fulfill()
+            })
+            .store(in: &cancellables)
+
+        wait(for: [expectation], timeout: 5)
+        XCTAssertEqual(message, "world")
+    }
+
+    func testAlamofireGet() throws {
         let expectation = XCTestExpectation()
         var message = ""
         MockService

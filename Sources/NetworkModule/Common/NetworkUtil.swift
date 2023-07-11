@@ -44,6 +44,7 @@ enum NetworkError: Error {
     case jsonDecodingError
     case typeCastingError
     case unKnownHttpError(status: Int)
+    case httpError
     case serverError(MYServerError)
 }
 
