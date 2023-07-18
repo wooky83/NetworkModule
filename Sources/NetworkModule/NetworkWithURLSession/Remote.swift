@@ -36,12 +36,14 @@ public class Remote<T: Decodable> {
 
     func request() async throws -> T {
 
-        print("requestNetworkConnection url is \(String(describing: urlRequest.url?.absoluteString))")
+        Log.network("request URL is \(urlRequest.url?.absoluteString ?? "")")
 
         let (resultData, response) = try await URLSession.shared.data(for: urlRequest)
         guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else { throw NetworkError.httpError }
-        print("[😝😜🤪] JsonResult : \(String(describing: String(data: resultData, encoding: .utf8)))")
-
+        Log.network("""
+        [😝😜🤪] JsonResult
+        \(NetworkUtil.convertToPrettyString(from: resultData))
+        """)
         guard let decodedResponse = try? JSONDecoder().decode(T.self, from: resultData) else { throw NetworkError.jsonDecodingError }
         return decodedResponse
     }
