@@ -49,7 +49,7 @@ public class Remote<T: Decodable> {
     }
     
     deinit {
-        print("🥱 Remote Dealloc")
+        Log.info("🥱 Remote Dealloc!!")
     }
     
 }
