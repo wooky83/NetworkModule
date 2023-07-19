@@ -45,7 +45,7 @@ public class NetworkTask<T: Decodable>: NSObject {
     /// - returns: The created `Promise<T>`.
     public func requestNetworkConnection(_ url: String) -> Promise<T> {
     
-        print("requestNetworkConnection url is \(url)\nheader is \(String(describing: self.cHttpHeader))")
+        Log.network("requestNetworkConnection url is \(url)\nheader is \(String(describing: self.cHttpHeader))")
         
         return Promise { seal in
             AF.request(url, method: self.cHttpMethod, parameters: self.cParameter, headers: self.cHttpHeader)
@@ -57,7 +57,10 @@ public class NetworkTask<T: Decodable>: NSObject {
                     print("[🍎🍊]response:\(response)")
                     if 200 ..< 300 ~= response.statusCode {
                         let resultData = responseData
-                        print("[😝😜🤪] JsonResult : \(String(describing: String(data: resultData, encoding: .utf8)))")
+                        Log.network("""
+                        [😝😜🤪] JsonResult
+                        \(NetworkUtil.convertToPrettyString(from: resultData))
+                        """)
                         do {
                             let decodingHelper = try JSONDecoder().decode(DecodingHelper.self, from: resultData)
                             let decodedJson = try decodingHelper.decode(to: T.self)
@@ -67,7 +70,7 @@ public class NetworkTask<T: Decodable>: NSObject {
                                 seal.reject(NetworkError.typeCastingError)
                             }
                         } catch let error as NSError {
-                            print("ParsingError : \(error)")
+                            Log.debug("ParsingError : \(error)")
                             seal.reject(NetworkError.jsonDecodingError)
                         }
                     } else if let myServerError = try? JSONDecoder().decode(MYServerError.self, from: responseData) {
@@ -90,7 +93,7 @@ public class NetworkTask<T: Decodable>: NSObject {
     }
     
     deinit {
-        print("networkTask Dealloc")
+        Log.info("networkTask Dealloc")
     }
     
 }
