@@ -54,7 +54,7 @@ public class NetworkTask<T: Decodable>: NSObject {
                     guard let response = res.response, let responseData = res.data else {
                         return seal.reject(NetworkError.networkError)
                     }
-                    print("[🍎🍊]response:\(response)")
+                    Log.network("[🍎🍊]response:\(response)")
                     if 200 ..< 300 ~= response.statusCode {
                         let resultData = responseData
                         Log.network("""
