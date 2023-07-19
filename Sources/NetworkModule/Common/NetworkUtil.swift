@@ -59,6 +59,8 @@ struct MYServerError: Decodable {
     let detailMessage: String
 }
 
+// MARK: - Log
+
 extension OSLog {
     static let subsystem = Bundle.main.bundleIdentifier!
     static let network = OSLog(subsystem: subsystem, category: "Network")
@@ -67,8 +69,8 @@ extension OSLog {
     static let error = OSLog(subsystem: subsystem, category: "Error")
 }
 
-struct Log {
-    enum Level {
+public struct Log {
+    fileprivate enum Level {
         case debug
         case info
         case network
@@ -121,11 +123,11 @@ struct Log {
         }
     }
 
-    static private func log(_ message: Any, _ arguments: [Any], level: Level) {
-#if DEBUG
-        let extraMessage = arguments.map({ String(describing: $0) }).joined(separator: " ")
+    static private func log(_ message: [String], level: Level, file: String, fnc: String, line: Int) {
         let logger = Logger(subsystem: OSLog.subsystem, category: level.category)
-        let logMessage = "\(message) \(extraMessage)"
+        let className = file.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
+        let function = fnc.unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) }.map { String($0) }.joined()
+        let logMessage = "[\(className):\(function):\(line)] \(message.joined(separator: ", "))"
         switch level {
         case .debug, .custom:
             logger.debug("\(logMessage, privacy: .public)")
@@ -136,29 +138,29 @@ struct Log {
         case .error:
             logger.error("\(logMessage, privacy: .public)")
         }
-#endif
     }
 }
 
-// MARK: - utils
-extension Log {
-    static func debug(_ message: Any, _ arguments: Any...) {
-        log(message, arguments, level: .debug)
+public extension Log {
+
+    static func debug(_ messages: String..., file: String = #file, fnc: String = #function, line: (Int)=#line) {
+        log(messages, level: .debug, file: file, fnc: fnc, line: line)
     }
 
-    static func info(_ message: Any, _ arguments: Any...) {
-        log(message, arguments, level: .info)
+    static func info(_ messages: String..., file: String = #file, fnc: String = #function, line: (Int)=#line) {
+        log(messages, level: .info, file: file, fnc: fnc, line: line)
     }
 
-    static func network(_ message: Any, _ arguments: Any...) {
-        log(message, arguments, level: .network)
+    static func network(_ messages: String..., file: String = #file, fnc: String = #function, line: (Int)=#line) {
+        log(messages, level: .network, file: file, fnc: fnc, line: line)
     }
 
-    static func error(_ message: Any, _ arguments: Any...) {
-        log(message, arguments, level: .error)
+    static func error(_ messages: String..., file: String = #file, fnc: String = #function, line: (Int)=#line) {
+        log(messages, level: .error, file: file, fnc: fnc, line: line)
     }
 
-    static func custom(category: String, _ message: Any, _ arguments: Any...) {
-        log(message, arguments, level: .custom(categoryName: category))
+    static func custom(_ messages: String..., category: String, file: String = #file, fnc: String = #function, line: (Int)=#line) {
+        log(messages, level: .custom(categoryName: category), file: file, fnc: fnc, line: line)
     }
+
 }

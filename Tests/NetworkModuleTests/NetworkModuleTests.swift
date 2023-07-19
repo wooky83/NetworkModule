@@ -51,4 +51,8 @@ final class NetworkModuleTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
         XCTAssertEqual(message, "world")
     }
+
+    func testLogger() throws {
+        Log.info("Test Logger!!")
+    }
 }
