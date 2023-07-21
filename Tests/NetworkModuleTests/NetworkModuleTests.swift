@@ -26,8 +26,10 @@ final class NetworkModuleTests: XCTestCase {
         var message = ""
         MockService
             .jsonplaceholderUser()
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { model in
+            .sink(receiveCompletion: { completion in
+                print("testURLSessionGet", completion)
+            }, receiveValue: { model in
+                print("testURLSessionGet", model)
                 message = model.hello
                 expectation.fulfill()
             })
@@ -35,6 +37,31 @@ final class NetworkModuleTests: XCTestCase {
 
         wait(for: [expectation], timeout: 5)
         XCTAssertEqual(message, "world")
+    }
+
+    func testURLSessionGetFail() throws {
+        let expectation = XCTestExpectation()
+        var networkError = NetworkError.httpError
+        MockService
+            .jsonplaceholderUserFail()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    networkError = error as? NetworkError ?? .httpError
+                case .finished:()
+                }
+                expectation.fulfill()
+            }, receiveValue: { model in
+                print(model)
+            })
+            .store(in: &cancellables)
+
+        wait(for: [expectation], timeout: 5)
+        if case .jsonDecodingError = networkError {
+            XCTAssertTrue(true)
+        } else {
+            XCTFail()
+        }
     }
 
     func testAlamofireGet() throws {

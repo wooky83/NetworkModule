@@ -34,18 +34,26 @@ public class Remote<T: Decodable> {
         return urlRequest
     }
 
-    func request() async throws -> T {
-
-        Log.network("request URL is \(urlRequest.url?.absoluteString ?? "")")
-
-        let (resultData, response) = try await URLSession.shared.data(for: urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else { throw NetworkError.httpError }
-        Log.network("""
-        [😝😜🤪] JsonResult
-        \(NetworkUtil.convertToPrettyString(from: resultData))
-        """)
-        guard let decodedResponse = try? JSONDecoder().decode(T.self, from: resultData) else { throw NetworkError.jsonDecodingError }
-        return decodedResponse
+    func request() -> AnyPublisher<T, Error> {
+        URLSession.shared
+            .dataTaskPublisher(for: urlRequest)
+            .tryMap { (data, response) -> Data in
+                guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else { throw NetworkError.httpError }
+                Log.network("""
+                [😝😜🤪] JsonResult
+                \(NetworkUtil.convertToPrettyString(from: data))
+                """)
+                return data
+            }
+            .decode(type: T.self, decoder: JSONDecoder())
+            .mapError { error in
+                if case is DecodingError = error {
+                    return NetworkError.jsonDecodingError
+                }
+                return error
+            }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
     deinit {
@@ -53,3 +61,4 @@ public class Remote<T: Decodable> {
     }
     
 }
+
