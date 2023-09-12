@@ -7,13 +7,18 @@ let package = Package(
     name: "NetworkModule",
     platforms: [
         .iOS(.v15),
+        .tvOS(.v15),
         .macOS(.v12),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "NetworkModule",
-            targets: ["NetworkModule"]
+            name: "AlamofireNetwork",
+            targets: ["AlamofireNetwork"]
+        ),
+        .library(
+            name: "URLSessionNetwork",
+            targets: ["URLSessionNetwork"]
         ),
     ],
     dependencies: [
@@ -25,16 +30,21 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "NetworkModule",
+            name: "AlamofireNetwork",
             dependencies: [
                 "Alamofire",
                 "PromiseKit"
             ]
         ),
+        .target(
+            name: "URLSessionNetwork",
+            dependencies: []
+        ),
         .testTarget(
             name: "NetworkModuleTests",
             dependencies: [
-                "NetworkModule",
+                "AlamofireNetwork",
+                "URLSessionNetwork",
                 .product(name: "Swifter", package: "swifter")
             ]
         ),

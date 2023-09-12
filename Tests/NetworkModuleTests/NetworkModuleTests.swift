@@ -1,6 +1,7 @@
 import XCTest
 import Combine
-@testable import NetworkModule
+@testable import AlamofireNetwork
+@testable import URLSessionNetwork
 
 final class NetworkModuleTests: XCTestCase {
 
@@ -41,13 +42,13 @@ final class NetworkModuleTests: XCTestCase {
 
     func testURLSessionGetFail() throws {
         let expectation = XCTestExpectation()
-        var networkError = NetworkError.httpError
+        var networkError = URLSessionNetwork.NetworkError.httpError
         MockService
             .jsonplaceholderUserFail()
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
-                    networkError = error as? NetworkError ?? .httpError
+                    networkError = error as? URLSessionNetwork.NetworkError ?? .httpError
                 case .finished:()
                 }
                 expectation.fulfill()
@@ -79,7 +80,4 @@ final class NetworkModuleTests: XCTestCase {
         XCTAssertEqual(message, "world")
     }
 
-    func testLogger() throws {
-        Log.info("Test Logger!!")
-    }
 }

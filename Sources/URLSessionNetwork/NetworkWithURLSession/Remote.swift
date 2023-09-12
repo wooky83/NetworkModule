@@ -39,7 +39,7 @@ public class Remote<T: Decodable> {
             .dataTaskPublisher(for: urlRequest)
             .tryMap { (data, response) -> Data in
                 guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else { throw NetworkError.httpError }
-                Log.network("""
+                print("""
                 [😝😜🤪] JsonResult
                 \(NetworkUtil.convertToPrettyString(from: data))
                 """)
@@ -57,7 +57,7 @@ public class Remote<T: Decodable> {
     }
     
     deinit {
-        Log.network("🥱 Remote Dealloc!!")
+        print("🥱 Remote Dealloc!!")
     }
     
 }
