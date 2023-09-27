@@ -1,11 +1,14 @@
 import XCTest
 import Combine
+import RxSwift
 @testable import AlamofireNetwork
 @testable import URLSessionNetwork
+@testable import RxNetwork
 
 final class NetworkModuleTests: XCTestCase {
 
-    var cancellables: Set<AnyCancellable> = .init()
+    private var cancellables: Set<AnyCancellable> = .init()
+    private let disposeBag = DisposeBag()
 
     var server: MyLocalServer!
 
@@ -80,4 +83,19 @@ final class NetworkModuleTests: XCTestCase {
         XCTAssertEqual(message, "world")
     }
 
+    //TODO Test Case 나누기
+    func testRxAlamofireSuccess() throws {
+        let expectation = XCTestExpectation()
+        var message = ""
+        MockService
+            .rxAlamofireSuccess()
+            .subscribe(onNext: { model in
+                message = model.hello
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        wait(for: [expectation], timeout: 5)
+        XCTAssertEqual(message, "world")
+    }
 }

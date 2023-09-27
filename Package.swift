@@ -20,11 +20,16 @@ let package = Package(
             name: "URLSessionNetwork",
             targets: ["URLSessionNetwork"]
         ),
+        .library(
+            name: "RxNetwork",
+            targets: ["RxNetwork"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.7.1"),
         .package(url: "https://github.com/mxcl/PromiseKit.git", from: "8.0.0"),
         .package(url: "https://github.com/httpswift/swifter.git", from: "1.5.0"),
+        .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git", from: "6.1.2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -40,11 +45,18 @@ let package = Package(
             name: "URLSessionNetwork",
             dependencies: []
         ),
+        .target(
+            name: "RxNetwork",
+            dependencies: [
+                "RxAlamofire",
+            ]
+        ),
         .testTarget(
             name: "NetworkModuleTests",
             dependencies: [
                 "AlamofireNetwork",
                 "URLSessionNetwork",
+                "RxNetwork",
                 .product(name: "Swifter", package: "swifter")
             ]
         ),
