@@ -1,6 +1,6 @@
 import XCTest
 import RxSwift
-@testable import RxNetwork
+@testable import RxNetworkKit
 
 fileprivate struct Service {
     public static func rxAlamofireSuccess() -> Observable<SuccessModel> {

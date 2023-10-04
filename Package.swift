@@ -13,16 +13,16 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "AlamofireNetwork",
-            targets: ["AlamofireNetwork"]
+            name: "PromiseNetworkKit",
+            targets: ["PromiseNetworkKit"]
         ),
         .library(
-            name: "URLSessionNetwork",
-            targets: ["URLSessionNetwork"]
+            name: "CombineNetworkKit",
+            targets: ["CombineNetworkKit"]
         ),
         .library(
-            name: "RxNetwork",
-            targets: ["RxNetwork"]
+            name: "RxNetworkKit",
+            targets: ["RxNetworkKit"]
         ),
     ],
     dependencies: [
@@ -35,18 +35,18 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "AlamofireNetwork",
+            name: "PromiseNetworkKit",
             dependencies: [
                 "Alamofire",
                 "PromiseKit"
             ]
         ),
         .target(
-            name: "URLSessionNetwork",
+            name: "CombineNetworkKit",
             dependencies: []
         ),
         .target(
-            name: "RxNetwork",
+            name: "RxNetworkKit",
             dependencies: [
                 "RxAlamofire",
             ]
@@ -54,9 +54,9 @@ let package = Package(
         .testTarget(
             name: "NetworkModuleTests",
             dependencies: [
-                "AlamofireNetwork",
-                "URLSessionNetwork",
-                "RxNetwork",
+                "PromiseNetworkKit",
+                "CombineNetworkKit",
+                "RxNetworkKit",
                 .product(name: "Swifter", package: "swifter")
             ]
         ),

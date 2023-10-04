@@ -1,8 +1,8 @@
 import Foundation
 import Combine
 import PromiseKit
-@testable import AlamofireNetwork
-@testable import URLSessionNetwork
+@testable import PromiseNetworkKit
+@testable import CombineNetworkKit
 
 struct MockService {
 

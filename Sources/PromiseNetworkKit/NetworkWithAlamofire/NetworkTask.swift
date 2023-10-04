@@ -62,13 +62,8 @@ public class NetworkTask<T: Decodable>: NSObject {
                         \(NetworkUtil.convertToPrettyString(from: resultData))
                         """)
                         do {
-                            let decodingHelper = try JSONDecoder().decode(DecodingHelper.self, from: resultData)
-                            let decodedJson = try decodingHelper.decode(to: T.self)
-                            if let json = decodedJson as? T {
-                                seal.fulfill(json)
-                            } else {
-                                seal.reject(NetworkError.typeCastingError)
-                            }
+                            let decodedJson = try JSONDecoder().decode(T.self, from: resultData)
+                            seal.fulfill(decodedJson)
                         } catch let error as NSError {
                             print("ParsingError : \(error)")
                             seal.reject(NetworkError.jsonDecodingError)
@@ -98,21 +93,3 @@ public class NetworkTask<T: Decodable>: NSObject {
     
 }
 
-struct DecodingHelper: Decodable {
-    private let decoder: Decoder
-
-    init(from decoder: Decoder) throws {
-        self.decoder = decoder
-    }
-
-    func decode(to type: Decodable.Type) throws -> Decodable {
-        let decodable = try type.init(from: decoder)
-        return decodable
-    }
-}
-
-extension Encodable {
-    func toJSONData() -> Data? {
-        try? JSONEncoder().encode(self)
-    }
-}
