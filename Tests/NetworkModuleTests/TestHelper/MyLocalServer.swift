@@ -23,3 +23,11 @@ class MyLocalServer {
         }
     }
 }
+
+struct SuccessModel: Codable {
+    let hello: String
+}
+
+struct FailModel: Codable {
+    let world: String
+}
