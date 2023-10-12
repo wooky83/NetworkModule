@@ -21,6 +21,10 @@ class MyLocalServer {
                 """
             ))
         }
+
+        server["/api/v2/status/fail"] = { request in
+            HttpResponse.internalServerError
+        }
     }
 }
 

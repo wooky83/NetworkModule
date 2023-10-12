@@ -17,6 +17,7 @@ public class CommonTestCase: XCTestCase {
 }
 
 public class AsyncXCTestCase: CommonTestCase {
+    @discardableResult
     func asynchronousTest<T>(_ closure: @escaping (CheckedContinuation<T, Error>) -> ()) async throws -> T {
         try await withCheckedThrowingContinuation { continuation in
             closure(continuation)
