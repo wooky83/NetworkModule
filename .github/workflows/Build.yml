@@ -19,13 +19,10 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '14.3.1'
+          xcode-version: '15.0.1'
 
-      - name: Build Network Module Project
-        run: swift build
-
-      - name: Network Module Test Case
-        run: swift test
+      - name: Build & Test Network Module Project
+        run: swift build && swift test
 
       - name: print Message
         run: echo "Wow GitHub Action!!!"
