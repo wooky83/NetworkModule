@@ -43,7 +43,9 @@ let package = Package(
         ),
         .target(
             name: "CombineNetworkKit",
-            dependencies: []
+            dependencies: [
+                .product(name: "Swifter", package: "swifter")
+            ]
         ),
         .target(
             name: "RxNetworkKit",
