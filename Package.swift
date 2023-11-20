@@ -39,18 +39,28 @@ let package = Package(
             dependencies: [
                 "Alamofire",
                 "PromiseKit"
+            ],
+            swiftSettings: [
+                .enableUpcomingFeature("ExistentialAny")
             ]
         ),
         .target(
             name: "CombineNetworkKit",
             dependencies: [
                 .product(name: "Swifter", package: "swifter")
+            ],
+            swiftSettings: [
+                .enableUpcomingFeature("ExistentialAny")
             ]
         ),
         .target(
             name: "RxNetworkKit",
             dependencies: [
                 "RxAlamofire",
+            ]
+            ,
+            swiftSettings: [
+                .enableUpcomingFeature("ExistentialAny")
             ]
         ),
         .testTarget(

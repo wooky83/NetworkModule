@@ -34,7 +34,7 @@ public class Remote<T: Decodable> {
         return urlRequest
     }
 
-    func request() -> AnyPublisher<T, Error> {
+    func request() -> AnyPublisher<T, any Error> {
         URLSession.shared
             .dataTaskPublisher(for: urlRequest)
             .tryMap { (data, response) -> Data in

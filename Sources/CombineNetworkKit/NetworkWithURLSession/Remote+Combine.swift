@@ -3,8 +3,8 @@ import Combine
 
 public extension Remote {
 
-    func asPublisher() -> AnyPublisher<T, Error> {
-        Deferred { () -> AnyPublisher<T, Error> in
+    func asPublisher() -> AnyPublisher<T, any Error> {
+        Deferred { () -> AnyPublisher<T, any Error> in
             self.request()
         }.eraseToAnyPublisher()
     }
